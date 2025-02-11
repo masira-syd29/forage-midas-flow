@@ -35,6 +35,9 @@ class TaskTwoTests {
         while (true) {
             Thread.sleep(20000);
             logger.info("...");
+//            logger.info("Received Transaction: senderId={}, recipientId={}, amount={}",
+//                    transaction.getSenderId(), transaction.getRecipientId(), transaction.getAmount());
+
         }
     }
 
