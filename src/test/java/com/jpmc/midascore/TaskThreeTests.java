@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.annotation.DirtiesContext;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @DirtiesContext
@@ -25,22 +26,29 @@ public class TaskThreeTests {
 
     @Test
     void task_three_verifier() throws InterruptedException {
+        // Populate users before sending transactions
         userPopulator.populate();
+
+        // Load transactions from the test file
         String[] transactionLines = fileLoader.loadStrings("/test_data/mnbvcxz.vbnm");
+        assertNotNull(transactionLines, "Transaction lines should not be null");
+
         for (String transactionLine : transactionLines) {
             kafkaProducer.send(transactionLine);
         }
-        Thread.sleep(2000);
 
+        // Give Kafka some time to process
+        Thread.sleep(5000); // Increase delay if needed
 
         logger.info("----------------------------------------------------------");
-        logger.info("----------------------------------------------------------");
-        logger.info("----------------------------------------------------------");
-        logger.info("use your debugger to find out what waldorf's balance is after all transactions are processed");
-        logger.info("kill this test once you find the answer");
-        while (true) {
-            Thread.sleep(20000);
-            logger.info("...");
+        logger.info("Check Kafka processing results...");
+
+        // Instead of infinite loop, log a message and exit
+        for (int i = 0; i < 3; i++) {
+            Thread.sleep(5000);
+            logger.info("Waiting for Kafka processing...");
         }
+
+        logger.info("Test execution completed. Check processed transactions in Kafka.");
     }
 }

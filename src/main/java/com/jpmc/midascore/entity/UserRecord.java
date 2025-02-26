@@ -43,4 +43,8 @@ public class UserRecord {
     public void setBalance(float balance) {
         this.balance = balance;
     }
+
+
 }
+//public Object getUsername() {
+//}

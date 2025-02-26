@@ -1,0 +1,21 @@
+general:
+  kafka-topic: test-kafka-topic
+
+spring:
+  kafka:
+    consumer:
+      group-id: test-group
+      auto-offset-reset: earliest
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    listener:
+      missing-topics-fatal: false
+
+
+
+
+
+
